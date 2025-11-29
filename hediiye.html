@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAMANIN ÖTESİNDE</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .analog-clock-svg {
+            /* Bu SVG, analog saat simgesinin kendisidir, dinamik değildir. */
+            width: 150px;
+            height: 150px;
+            margin: 30px auto;
+            display: block;
+            fill: #333; /* Koyu Gri çerçeve */
+            stroke: #333;
+            stroke-width: 1;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            background-color: #111;
+        }
+
+        /* Dış Görünüm ve Genel Stil */
+        body {
+            background-color: #000000;
+            color: #EEEEEE;
+            font-family: Arial, sans-serif; /* Ana metinler daha okunabilir */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: 5px;
+            margin-bottom: 5px;
+            color: #FFFFFF;
+        }
+
+        .subtitle {
+            font-size: 0.8em;
+            color: #AAAAAA;
+            margin-bottom: 30px;
+        }
+
+        /* Dijital Saat Stili (Görüntüdeki fonta benzemesi için ayarlandı) */
+        #digital-time {
+            font-family: 'Cinzel', serif; /* Kalın ve Gotik Font */
+            font-size: 3.5em;
+            font-weight: 400;
+            letter-spacing: 3px;
+            color: #FFFFFF;
+            margin: 10px 0 5px 0;
+        }
+
+        #date-info {
+            font-size: 0.8em;
+            color: #AAAAAA;
+            margin-bottom: 50px;
+        }
+
+        /* Sayaç Kutuları Yerleşimi */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 800px;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        /* Genel Kutu Stili */
+        .box {
+            background-color: #111111;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #333333;
+            text-align: left;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .box-title {
+            font-size: 0.9em;
+            color: #EEEEEE;
+            margin-bottom: 5px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .box-date {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #FF0000; /* Kırmızı Vurgu */
+            margin-bottom: 5px;
+        }
+
+        .box-days-ago {
+            font-size: 0.7em;
+            color: #AAAAAA;
+        }
+
+        /* Geçen Süre Kutuları */
+        .duration-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            gap: 10px;
+        }
+
+        .duration-item {
+            background-color: #000000;
+            border: 1px solid #333333;
+            padding: 8px 5px;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .duration-value {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #FFFFFF;
+            line-height: 1;
+        }
+
+        .duration-label {
+            font-size: 0.6em;
+            color: #AAAAAA;
+            margin-top: 3px;
+            text-transform: uppercase;
+        }
+
+        /* Mobil Uyum */
+        @media (max-width: 700px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="title">ZAMANIN ÖTESİNDE</div>
+    <div class="subtitle">Anılarımız Sonsuzluğa Uzanaır</div>
+    
+    <svg class="analog-clock-svg" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="45" stroke="#333333" fill="#111111" stroke-width="2"/>
+        <line x1="50" y1="50" x2="50" y2="20" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" id="hour-hand"/>
+        <line x1="50" y1="50" x2="50" y2="10" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" id="minute-hand"/>
+        <line x1="50" y1="50" x2="50" y2="15" stroke="#FF0000" stroke-width="1" stroke-linecap="round" id="second-hand"/>
+        <circle cx="50" cy="50" r="4" fill="#FF0000"/>
+    </svg>
+
+    <div id="digital-time">00:00:00</div>
+    <div id="date-info">PAZAR - 30 Kasım 2025</div> <div class="grid-container">
+        <div class="box">
+            <div class="box-title">📅 İLK TANIŞTIĞIMIZ GÜN</div>
+            <div id="tanisma-date-display" class="box-date">27 Mayıs 2025 00:00</div>
+            <div id="tanisma-days-ago" class="box-days-ago">...gün önce</div>
+        </div>
+        
+        <div class="box">
+            <div class="box-title">🖤 YENİDEN BİRLİKTE OLDUĞUMUZ GÜN</div>
+            <div id="sevgili-date-display" class="box-date">14 Kasım 2025 00:00</div>
+            <div id="sevgili-days-ago" class="box-days-ago">...gün önce</div>
+        </div>
+
+        <div class="box">
+            <div class="box-title">İLK TANIŞTIĞIMIZ GÜN - GEÇEN SÜRE</div>
+            <div id="tanisma-duration" class="duration-container">
+                </div>
+        </div>
+
+        <div class="box">
+            <div class="box-title">YENİDEN BİRLİKTE OLDUĞUMUZ GÜN - GEÇEN SÜRE</div>
+            <div id="sevgili-duration" class="duration-container">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        // SİZİN BELİRLEDİĞİNİZ TARİHLER
+        const tanismaTarihiStr = '2025-05-27T00:00:00'; 
+        const sevgiliTarihiStr = '2025-11-14T00:00:00'; 
+
+        const tanismaTarihi = new Date(tanismaTarihiStr);
+        const sevgiliTarihi = new Date(sevgiliTarihiStr);
+
+        // Tarihleri başlık kısmına formatlayıp yerleştirme
+        const dateFormatter = new Intl.DateTimeFormat('tr-TR', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        
+        document.getElementById('tanisma-date-display').innerText = dateFormatter.format(tanismaTarihi);
+        document.getElementById('sevgili-date-display').innerText = dateFormatter.format(sevgiliTarihi);
+
+        function renderDuration(durationElementId, days, hours, minutes, seconds) {
+            const container = document.getElementById(durationElementId);
+            container.innerHTML = `
+                <div class="duration-item"><div class="duration-value">${days}</div><div class="duration-label">GÜN</div></div>
+                <div class="duration-item"><div class="duration-value">${hours}</div><div class="duration-label">SAAT</div></div>
+                <div class="duration-item"><div class="duration-value">${minutes}</div><div class="duration-label">DAKİKA</div></div>
+                <div class="duration-item"><div class="duration-value">${seconds}</div><div class="duration-label">SANİYE</div></div>
+            `;
+        }
+
+        function updateAll() {
+            const now = new Date();
+
+            // 1. Dijital Saat ve Gün Bilgisi Güncelleme
+            const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const timeString = now.toLocaleTimeString('tr-TR', timeOptions);
+            document.getElementById('digital-time').innerText = timeString;
+
+            const dateOptions = { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' };
+            document.getElementById('date-info').innerText = now.toLocaleDateString('tr-TR', dateOptions).toUpperCase();
+
+            // 2. Sayaç Güncelleme (Geçen Süreyi Hesaplama)
+            function calculateDuration(startDate, daysAgoId) {
+                const diffMs = now - startDate;
+                if (diffMs < 0) return { days: '000', hours: '00', minutes: '00', seconds: '00' };
+
+                const msInDay = 1000 * 60 * 60 * 24;
+                
+                const daysTotal = Math.floor(diffMs / msInDay);
+                document.getElementById(daysAgoId).innerText = `${daysTotal} gün önce`;
+
+                const days = String(daysTotal).padStart(3, '0');
+                const hours = String(Math.floor((diffMs % msInDay) / (1000 * 60 * 60))).padStart(2, '0');
+                const minutes = String(Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+                const seconds = String(Math.floor((diffMs % (1000 * 60)) / 1000)).padStart(2, '0');
+
+                return { days, hours, minutes, seconds };
+            }
+
+            const tanisma = calculateDuration(tanismaTarihi, 'tanisma-days-ago');
+            const sevgili = calculateDuration(sevgiliTarihi, 'sevgili-days-ago');
+            
+            renderDuration('tanisma-duration', tanisma.days, tanisma.hours, tanisma.minutes, tanisma.seconds);
+            renderDuration('sevgili-duration', sevgili.days, sevgili.hours, sevgili.minutes, sevgili.seconds);
+        }
+
+        // Her saniye güncelle
+        setInterval(updateAll, 1000);
+        updateAll(); 
+    </script>
+
+</body>
+</html>
